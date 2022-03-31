@@ -6,7 +6,6 @@ import requests
 
 # path of collected images 
 path_image = './collected_data_raw_top_200_Google/'
-# path_image = './collected_data_raw_CEO_CEO_US/'
 
 for file_folder in os.listdir(path_image):
     # process html file
