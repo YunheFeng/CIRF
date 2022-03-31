@@ -2,10 +2,6 @@ import os
 from bs4 import BeautifulSoup
 import base64
 import shutil
-import requests
-import os
-import codecs
-import shutil
 
 # path of collected images 
 path_image = './collected_data_raw_top_200_Naver/'
@@ -37,8 +33,23 @@ for file_folder in os.listdir(path_image):
         count_valid = 0 
         list_invalid_src = []
         for idx, src in enumerate(list_src):
+            # base64
+            if (src.startswith('data:image/')):
+                # determine image format 
+                img_format = src.split('data:image/')[-1].split(';')[0]
+                if (img_format == 'jpeg'):
+                    img_format = 'jpg'
+                else:
+                    print (img_format)
+                # filter gif icons 
+                if (img_format != 'gif'):
+                    str_base64 = src.split('base64,')[-1]
+                    dst = path_image_ranked + str(idx) + '.' + img_format
+                    # convert base64 into image 
+                    with open(dst, 'wb') as f:
+                        f.write(base64.urlsafe_b64decode(str_base64))
             # already downloaded images 
-            if (src.startswith(f_html.split('.html')[0])):
+            elif (src.startswith(f_html.split('.html')[0])):
                 # determine image format 
                 img_format_orig = src.split('.')[-1]
                 set_img_format_orig.add(img_format_orig)

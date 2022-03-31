@@ -1,11 +1,5 @@
 import os
 from bs4 import BeautifulSoup
-import base64
-import shutil
-import requests
-import os
-import codecs
-import shutil
 from PIL import Image
 from webptools import dwebp
 
